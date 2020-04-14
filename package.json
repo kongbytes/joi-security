@@ -1,0 +1,27 @@
+{
+  "name": "joi-security",
+  "version": "0.1.0",
+  "description": "Detect security flaws in Joi validation schemas",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/main.ts"
+  },
+  "author": "Saluki",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/hapi__joi": "^16.0.12",
+    "@types/lodash": "^4.14.149",
+    "@types/meow": "^5.0.0",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@types/node": "^10.0.0",
+    "chalk": "^4.0.0",
+    "lodash": "^4.17.15",
+    "meow": "^6.1.0",
+    "randexp": "^0.5.3"
+  }
+}
