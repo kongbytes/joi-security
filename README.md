@@ -1,8 +1,8 @@
 # Joi security
 
-**This project provides offensive and defensive security assesments for the Joi validator library. The goal is to ensure that a given Joi validation shema can resist against known security attacks such as SQL injections and SSRF attempts.**
+**This project provides a CLI for offensive and defensive security assesments for the Joi validator library. The goal is to ensure that a given Joi validation shema can resist against known security attacks such as SQL injections, path traversal and SSRF attempts.**
 
-## Getting started
+## Developer getting started
 
 Clone this project and make sure to have a complete Node installation (including NPM) on your workstation. Please note that this project has currently been tested with Node LTS 12.
 
@@ -13,6 +13,10 @@ cd joi-security
 # Install all project dependencies
 npm install
 
-# Run a first scan against a Joi schema
+# Run a first development scan against a Joi schema
 npm run dev scan ./sandbox/blogpost-schema.js
 ```
+
+## Copyright and license
+
+"Joi security" is released under the GNU Affero General Public License. Feel free to suggest a feature, report a bug, or ask something: https://github.com/Saluki/joi-security/issues
