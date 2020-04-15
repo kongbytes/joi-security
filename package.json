@@ -4,10 +4,14 @@
   "description": "Detect security flaws in Joi validation schemas",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/main.ts"
+    "dev": "ts-node src/main.ts",
+    "build": "tsc"
   },
   "author": "Saluki",
   "license": "AGPL-3.0",
+  "bin": {
+    "joi-security": "./dist/main.js"
+  },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/hapi__joi": "^16.0.12",
