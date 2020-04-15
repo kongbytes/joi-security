@@ -6,7 +6,30 @@
   <img src="https://raw.githubusercontent.com/Saluki/joi-security/master/docs/joi-security-results-v1.png">
 </p>
 
-## Developer getting started
+## Getting started
+
+Install the latest *joi-security* CLI tool using NPM.
+
+```bash
+npm install -g joi-security
+```
+
+Create a sample JavaScript file containing the Joi schema below and name it `schema.js`.
+
+```js
+Joi.object().keys({
+    username: Joi.string().required(),
+    password: Joi.string().required()
+});
+```
+
+Scan the JS file using the `joi-security` scan command.
+
+```bash
+joi-security scan sandbox/basic-schema.js
+```
+
+## Contributing
 
 Clone this project and make sure to have a complete Node installation (including NPM) on your workstation. Please note that this project has currently been tested with Node LTS 12.
 
