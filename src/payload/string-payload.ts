@@ -1,7 +1,7 @@
 import * as RandExp from 'randexp';
 import * as Joi from '@hapi/joi';
 
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import { AttackPayload, STRING_ATTACKS } from '../attack';
 
 export class StringPayload extends BasePayload {
@@ -78,7 +78,7 @@ export class StringPayload extends BasePayload {
         return 'Abc123';
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         if (this.hasConstraint(StringConstraint.email)) {
             return STRING_ATTACKS.EMAIL;
@@ -96,7 +96,18 @@ export class StringPayload extends BasePayload {
             return STRING_ATTACKS.URI;
         }
 
-        return STRING_ATTACKS.COMMON;
+        let baseCollection = STRING_ATTACKS.COMMON;
+
+        // If we are dealing with a potential file path input, we can add a new set
+        // of dedicated path traversal attacks.
+        if (options?.keyName?.match(/(path|file|doc|image|upload)/i)) {
+            baseCollection = {
+                ...STRING_ATTACKS.PATH_TRAVERSAL,
+                ...baseCollection
+            }
+        }
+
+        return baseCollection;
     }
 
 }

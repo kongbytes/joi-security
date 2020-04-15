@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // TODO This is current work in progress
 // - Install latest releases of Joi (14,15,16,17) and allow to pick one
 // - Add support for HTML page generation with results and JS controls
@@ -10,11 +12,20 @@ import * as meow from 'meow';
 import { generatePayload } from './payload';
 import { ConsoleFormat, ResultBag } from './output';
 
-function scanCode(filePath: string, options: { outputFormat?: string, ignore?: string[], select?: string[] }) {
+function scanCode(filePath?: string, options?: { outputFormat?: string, ignore?: string[], select?: string[] }) {
 
-    console.log(options);
+    if (!filePath) {
+        throw new Error(`File containing the Joi validation schema must be provided`);
+    }
 
-    const fileContent = readFileSync(filePath).toString()
+    let fileContent = ''
+    try {
+        fileContent = readFileSync(filePath).toString();
+    }
+    catch(err) {
+        throw new Error(`File containing the Joi validation schema not readable (${err.message})`);
+    }
+
     const schema = eval(`const Joi = require('@hapi/joi');${fileContent}`);
 
     const basePayload = generatePayload(schema);
@@ -28,7 +39,7 @@ function scanCode(filePath: string, options: { outputFormat?: string, ignore?: s
     if (error) {
         console.log(value);
         console.log(error);
-        throw new Error('First initial payload should be valid');
+        throw new Error('Expecting generated mock to pass the Joi validation schema but failed');
     }
 
     // ------------
@@ -93,13 +104,23 @@ const [ mainCommand, filePath ] = cli.input;
 
 if (mainCommand === 'scan') {
 
-    // TODO Options not working
-    scanCode(filePath, {
-        outputFormat: cli.flags.output,
-        select: cli.flags?.select?.split(','),
-        ignore: cli.flags?.ignore?.split(',')
-    });
-    process.exit(0);
+    try {
+    
+        scanCode(filePath, {
+            outputFormat: cli.flags.output,
+            select: cli.flags?.select?.split(','),
+            ignore: cli.flags?.ignore?.split(',')
+        });
+        process.exit(0);
+    
+    }
+    catch (err) {
+
+        console.log();
+        console.log(err.message);
+        console.log();
+        process.exit(1);
+    }
 }
 
 console.log(cli.help);

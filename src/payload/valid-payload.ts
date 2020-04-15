@@ -1,4 +1,4 @@
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import * as Joi from '@hapi/joi';
 import { AttackPayload } from '../attack';
 
@@ -24,7 +24,7 @@ export class ValidPayload extends BasePayload {
         return this.validValues[0];
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
         return [];
     }
 

@@ -1,5 +1,5 @@
 import * as Joi from '@hapi/joi';
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import { SeverityLevel } from '../severity-level';
 import { AttackPayload, STRING_ATTACKS } from '../attack';
 
@@ -17,7 +17,7 @@ export class UnknownPayload extends BasePayload {
         return 'Unknown';
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         return [
             ...STRING_ATTACKS.COMMON,

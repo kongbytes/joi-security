@@ -11,7 +11,7 @@ export abstract class BasePayload {
 
     public abstract generateMock(): unknown;
 
-    public abstract generateAttacks(): AttackPayload[];
+    public abstract generateAttacks(options?: AttackOptions): AttackPayload[];
 
     public addConstraint(item: AttackConstraint) {
         this.attackConstraints.push(item);
@@ -41,10 +41,15 @@ export interface InternalSchema {
 
 }
 
-
 export interface AttackConstraint {
 
     name: string;
     details?: any;
+
+}
+
+export interface AttackOptions {
+
+    keyName?: string
 
 }

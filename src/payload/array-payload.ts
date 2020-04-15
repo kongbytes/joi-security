@@ -1,4 +1,4 @@
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import * as Joi from '@hapi/joi';
 import { AttackPayload } from '../attack';
 import { generatePayload } from './utils';
@@ -25,7 +25,7 @@ export class ArrayPayload extends BasePayload {
         return this.allowedPayloads.map(allowedPayload => allowedPayload.generateMock());
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         const allAttacks = this.allowedPayloads.map(allowedPayload => allowedPayload.generateAttacks()).flat();
 

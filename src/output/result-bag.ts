@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { SeverityLevel } from '../severity-level';
 
 export class ResultBag {

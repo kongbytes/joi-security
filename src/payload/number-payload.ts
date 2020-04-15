@@ -1,5 +1,5 @@
 import * as Joi from '@hapi/joi';
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import { AttackPayload, NUMBER_ATTACKS } from '../attack';
 
 export class NumberPayload extends BasePayload {
@@ -48,7 +48,7 @@ export class NumberPayload extends BasePayload {
         return 5;
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         return NUMBER_ATTACKS.COMMON;
     }

