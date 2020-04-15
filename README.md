@@ -1,6 +1,10 @@
 # Joi security
 
-**This project provides a CLI for offensive and defensive security assesments for the Joi validator library. The goal is to ensure that a given Joi validation shema can resist against known security attacks such as SQL injections, path traversal and SSRF attempts.**
+**This project provides a CLI for offensive and defensive security assesments on the Joi validator library. The goal is to ensure that a given Joi validation shema can resist against known security attacks such as SQL injections, path traversal and SSRF attempts.**
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Saluki/joi-security/master/docs/joi-security-results-v1.png">
+</p>
 
 ## Developer getting started
 
