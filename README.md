@@ -26,7 +26,7 @@ Joi.object().keys({
 Scan the JS file using the `joi-security` scan command.
 
 ```bash
-joi-security scan sandbox/basic-schema.js
+joi-security scan ./schema.js
 ```
 
 ## Contributing
