@@ -6,23 +6,28 @@
 // - Add support for extended outputs (plain, YAML, Burp, ZAP, ...)
 // - Possible to create standalone version for browser usage?
 
+import * as _ from 'lodash';
 import { readFileSync } from 'fs';
-import * as meow from 'meow';
+import * as yargs from 'yargs';
 
 import { generatePayload } from './payload';
-import { ConsoleFormat, ResultBag } from './output';
+import { ConsoleFormat, ResultBag, WebFormat } from './output';
 
-function scanCode(filePath?: string, options?: { outputFormat?: string, ignore?: string[], select?: string[] }) {
+function scanCode(filePath: string, options: { outputFormat: string, ignore?: string[], select?: string[] }) {
 
     if (!filePath) {
         throw new Error(`File containing the Joi validation schema must be provided`);
+    }
+
+    if (!['console','web'].includes(options.outputFormat)) {
+        throw new Error(`Output format ${options.outputFormat} not supported`);
     }
 
     let fileContent = ''
     try {
         fileContent = readFileSync(filePath).toString();
     }
-    catch(err) {
+    catch (err) {
         throw new Error(`File containing the Joi validation schema not readable (${err.message})`);
     }
 
@@ -59,68 +64,40 @@ function scanCode(filePath?: string, options?: { outputFormat?: string, ignore?:
         });
     }
 
-    if (options?.outputFormat !== 'console') {
-        throw new Error(`Output format not supported`);
+    if (options.outputFormat === 'console') {
+        const output = new ConsoleFormat(resultBag).process();
+        console.log(output);
     }
-
-    const output = new ConsoleFormat(resultBag).process();
-    console.log(output);
+    else if (options.outputFormat === 'web') {
+        const output = new WebFormat(resultBag).process();
+        console.log(output);
+    }
 }
 
-const cli = meow(`
-    Usage
-      $ joi-security scan <file.js>
+yargs
+    .command({
+        command: 'scan <file>',
+        aliases: ['s'],
+        builder: (yargs) => yargs.default('value', 'true'),
+        handler: (argv) => {
 
-    Commands
-      scan    Scan JS file containing Joi schema
- 
-    Options
-      --ignore, -i  Ignore comma-separated tags
-      --select, -s  Select only comma-separated tags
-      --output, -o  Output format
- 
-    Examples
-      $ joi-security scan --output=json file.js
-`, {
-    version: '0.1.0',
-    flags: {
-        ignore: {
-            type: 'string',
-            alias: 'i'
-        },
-        select: {
-            type: 'string',
-            alias: 's'
-        },
-        output: {
-            type: 'string',
-            default: 'console',
-            alias: 'o'
+            try {
+
+                scanCode(`${argv.file}`, {
+                    outputFormat: (_.isString(argv.output)) ? argv.output : 'console',
+                });
+                process.exit(0);
+        
+            }
+            catch (err) {
+        
+                console.log();
+                console.log(err.message);
+                console.log();
+                process.exit(1);
+            }
+
         }
-    }
-});
-
-const [ mainCommand, filePath ] = cli.input;
-
-if (mainCommand === 'scan') {
-
-    try {
-    
-        scanCode(filePath, {
-            outputFormat: cli.flags.output,
-            select: cli.flags?.select?.split(','),
-            ignore: cli.flags?.ignore?.split(',')
-        });
-        process.exit(0);
-    
-    }
-    catch (err) {
-
-        console.log();
-        console.log(err.message);
-        console.log();
-        process.exit(1);
-    }
-}
-
-console.log(cli.help);
+    })
+    .help()
+    .argv
