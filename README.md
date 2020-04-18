@@ -43,7 +43,10 @@ The *joi-security* CLI includes by default a wide range of attacks that will be 
 * LFI (*Local File Inclusion*)
 * Overflow
 * SSRF
-* Suspicious IP addresses and URI
+* Suspicious IP addresses
+* Homograph attacks on domains & emails
+
+Joi security will also attempt to detect the input content based on key names and perform targeted attacks. For example, when matching with potential phone numbers the CLI will try to perform phone-related attacks against the Joi schema.
 
 Credits to the awesome [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/) repository for the advanced attacks.
 
