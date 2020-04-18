@@ -1,5 +1,6 @@
 import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import * as Joi from '@hapi/joi';
+import * as _ from 'lodash';
 import { generatePayload } from './utils';
 import { AttackPayload } from '../attack';
 
@@ -27,7 +28,7 @@ export class AltenativesPayload extends BasePayload {
     public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
         const attacks = this.alternatives.map(alternativePayload => alternativePayload.generateAttacks());
-        return attacks.flat();
+        return _.flatten(attacks);
     }
 
 }

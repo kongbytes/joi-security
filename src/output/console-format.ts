@@ -37,8 +37,8 @@ export class ConsoleFormat extends BaseFormat {
 
         const analytics = _.countBy(this.resultBag.records, record => record.result);
 
-        output += `Blocked attacks   ${analytics['blocked']}\r\n`;
-        output += `Bypassed attacks  ${analytics['bypassed']}`;
+        output += `Blocked attacks   ${analytics['blocked'] || 0}\r\n`;
+        output += `Bypassed attacks  ${analytics['bypassed'] || 0}`;
         output += `\r\n`;
 
         return output;

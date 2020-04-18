@@ -50,7 +50,9 @@ export class NumberPayload extends BasePayload {
 
     public generateAttacks(options?: AttackOptions): AttackPayload[] {
 
-        return NUMBER_ATTACKS.COMMON;
+        return [
+            ...NUMBER_ATTACKS.COMMON
+        ];
     }
 
 }
