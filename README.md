@@ -1,4 +1,4 @@
-# Joi security
+# Joi security 🔥
 
 **This project provides a CLI for offensive and defensive security assesments on the Joi validator library. The goal is to ensure that a given Joi validation shema can resist against known security attacks such as SQL injections, path traversal and SSRF attempts.**
 
@@ -17,6 +17,7 @@ npm install -g joi-security
 Create a sample JavaScript file containing the Joi schema below and name it `schema.js`.
 
 ```js
+// A sample Joi schema used for login validation
 Joi.object().keys({
     username: Joi.string().required(),
     password: Joi.string().required()
@@ -28,6 +29,23 @@ Scan the JS file using the `joi-security` scan command.
 ```bash
 joi-security scan ./schema.js
 ```
+
+Do not include `require` or `return` statements in the provided JS file, an export named `Joi` will be provided. Keep the Joi schema to analyze as last statement in your file, as it will be otherwise ignored.
+
+## Web attacks
+
+The *joi-security* CLI includes by default a wide range of attacks that will be used to test your Joi schemas :
+
+* XSS including Markdown bypass
+* SQL injections
+* NoSQL injections
+* RCE (*Remote Code Execution*)
+* LFI (*Local File Inclusion*)
+* Overflow
+* SSRF
+* Suspicious IP addresses and URI
+
+Credits to the awesome [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/) repository for the advanced attacks.
 
 ## Contributing
 
