@@ -1,4 +1,5 @@
 import { AttackPayload } from '../attack';
+
 import { BasePayload } from './base-payload';
 
 export class BooleanPayload extends BasePayload {

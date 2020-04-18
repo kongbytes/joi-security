@@ -1,8 +1,9 @@
-import * as _ from 'lodash';
 import * as Joi from '@hapi/joi';
+import * as _ from 'lodash';
+
+import { AttackPayload } from '../attack';
 
 import { BasePayload, InternalSchema } from './base-payload';
-import { AttackPayload } from '../attack';
 import { generatePayload } from './utils';
 
 export class ArrayPayload extends BasePayload {

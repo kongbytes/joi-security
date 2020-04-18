@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
 
+import { SeverityLevel } from '../severity-level';
+
 import { BaseFormat } from './base-format';
 import { ResultBag } from './result-bag';
-import { SeverityLevel } from '../severity-level';
 
 export class WebFormat extends BaseFormat {
 

@@ -1,6 +1,7 @@
 import { AttackPayload, STRING_ATTACKS } from '../attack';
-import { BasePayload } from './base-payload';
 import { SeverityLevel } from '../severity-level';
+
+import { BasePayload } from './base-payload';
 
 export class UnknownPayload extends BasePayload {
 

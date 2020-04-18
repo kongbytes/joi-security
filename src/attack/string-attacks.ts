@@ -1,5 +1,6 @@
-import { AttackPayload } from './attack-payload';
 import { SeverityLevel } from '../severity-level';
+
+import { AttackPayload } from './attack-payload';
 
 export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
 
@@ -114,9 +115,22 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
 
     EMAIL: [
         {
+            // This will work on older Joi versions, since RFC compliant
             severity: SeverityLevel.HIGH,
             messages: ['RFC-compliant email bypass'],
             payload: '"><svg/onload=confirm(1)>"@domain.com',
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Punycode domains may allow homograph phishing attacks'],
+            payload: 'bookings@airfrạnce.com',
+            tags: ['punycode', 'phishing']
+        },
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Allowing localhost domains may cause unknown actions'],
+            payload: `admin@localhost`,
+            tags: []
         }
     ],
 
@@ -159,6 +173,18 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['No local hostname restriction on may cause SSRF'],
             payload: `localhost`,
             tags: ['ssrf']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Punycode domains may allow homograph phishing attacks'],
+            payload: 'lidǀ.com',
+            tags: ['punycode', 'phishing']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Punycode domains may allow homograph phishing attacks'],
+            payload: 'starɓucks.com',
+            tags: ['punycode', 'phishing']
         }
     ],
 
@@ -195,6 +221,33 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['Reflected XSS in URL parameter'],
             payload: 'https://domain.com/search.html?query=<svg onload=alert(1)>&lang=en',
             tags: ['xss', 'reflected']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Punycode domains may allow homograph phishing attacks'],
+            payload: 'https://spaɾ.com/login.html',
+            tags: ['punycode', 'phishing']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Punycode domains may allow homograph phishing attacks'],
+            payload: 'http://www.googĺe.com/register',
+            tags: ['punycode', 'phishing']
+        }
+    ],
+
+    PHONE: [
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Users may submit premium-rate telephone numbers'],
+            payload: '090522726',
+            tags: ['phone', 'belgium', 'local']
+        },
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Users may submit premium-rate telephone numbers'],
+            payload: '+3290522726',
+            tags: ['phone', 'belgium', 'international']
         }
     ]
 

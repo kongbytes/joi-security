@@ -1,8 +1,9 @@
-import * as _ from 'lodash';
 import * as Joi from '@hapi/joi';
+import * as _ from 'lodash';
+
+import { AttackPayload } from '../attack';
 
 import { BasePayload, InternalSchema } from './base-payload';
-import { AttackPayload } from '../attack';
 import { generatePayload } from './utils';
 
 export class AltenativesPayload extends BasePayload {
@@ -15,8 +16,8 @@ export class AltenativesPayload extends BasePayload {
 
     public buildFromSchema(rawSchema: Joi.Schema & InternalSchema): AltenativesPayload {
 
-        const alternativeSchemas = rawSchema['$_terms'].matches;
-        this.alternatives = alternativeSchemas.map((schema: any) => generatePayload(schema.schema));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        this.alternatives = rawSchema['$_terms'].matches.map((schema: any) => generatePayload(schema.schema));
 
         return this;
     }

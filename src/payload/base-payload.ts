@@ -1,4 +1,5 @@
 import * as Joi from '@hapi/joi';
+
 import { AttackPayload } from '../attack';
 
 export abstract class BasePayload {

@@ -1,9 +1,10 @@
-import * as _ from 'lodash';
 import * as chalk from 'chalk';
+import * as _ from 'lodash';
+
+import { SeverityLevel } from '../severity-level';
 
 import { BaseFormat } from './base-format';
 import { ResultBag } from './result-bag';
-import { SeverityLevel } from '../severity-level';
 
 export class ConsoleFormat extends BaseFormat {
 
@@ -25,7 +26,7 @@ export class ConsoleFormat extends BaseFormat {
         let output = '';
         for (const [firstMessage, records] of results) {
 
-            output += `${this.formatLevel(records[0].severity)} ${chalk.whiteBright(firstMessage)} ${chalk.grey('(' + records.length + ' payloads bypassed)')}\r\n`;
+            output += `${this.formatLevel(records[0].severity)} ${chalk.whiteBright(firstMessage)} ${chalk.grey(`(${ records.length } payloads bypassed)`)}\r\n`;
             output += `\r\n`;
 
             for (const record of records) {

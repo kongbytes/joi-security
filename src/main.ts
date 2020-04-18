@@ -6,9 +6,9 @@
 // - Add support for extended outputs (plain, YAML, Burp, ZAP, ...)
 // - Possible to create standalone version for browser usage?
 
+import { readFileSync } from 'fs';
 import * as _ from 'lodash';
 import * as yargs from 'yargs';
-import { readFileSync } from 'fs';
 
 import { ConsoleFormat, ResultBag, WebFormat } from './output';
 import { generatePayload } from './payload';
@@ -99,5 +99,7 @@ yargs
 
         }
     })
+    .showHelpOnFail(true)
     .help()
+    .demandCommand()
     .argv

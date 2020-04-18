@@ -1,5 +1,6 @@
-import { AttackPayload } from './attack-payload';
 import { SeverityLevel } from '../severity-level';
+
+import { AttackPayload } from './attack-payload';
 
 export const NUMBER_ATTACKS: { [key: string]: AttackPayload[] } = {
 

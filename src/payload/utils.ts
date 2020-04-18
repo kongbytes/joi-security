@@ -1,8 +1,8 @@
 import * as Joi from '@hapi/joi';
 
-import { BasePayload, InternalSchema } from './base-payload';
 import { AltenativesPayload } from './alternatives-payload';
 import { ArrayPayload } from './array-payload';
+import { BasePayload, InternalSchema } from './base-payload';
 import { BooleanPayload } from './boolean-payload';
 import { NumberPayload } from './number-payload';
 import { ObjectPayload } from './object-payload';
@@ -18,6 +18,7 @@ export function generatePayload(unknownSchema: unknown): BasePayload {
 
     const schema = unknownSchema as Joi.Schema;
 
+    // eslint-disable-next-line no-extra-parens
     if ((schema as InternalSchema)['_valids']) {
         return new ValidPayload().buildFromSchema(schema);
     }

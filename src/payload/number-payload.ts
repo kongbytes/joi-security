@@ -1,6 +1,7 @@
 import * as Joi from '@hapi/joi';
 
 import { AttackPayload, NUMBER_ATTACKS } from '../attack';
+
 import { BasePayload, InternalSchema } from './base-payload';
 
 enum NumberConstraint {
