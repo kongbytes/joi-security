@@ -1,6 +1,6 @@
 {
   "name": "joi-security",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Detect security flaws in Joi validation schemas",
   "main": "index.js",
   "scripts": {
