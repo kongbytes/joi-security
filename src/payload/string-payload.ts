@@ -1,9 +1,10 @@
-import * as _ from 'lodash';
 import * as Joi from '@hapi/joi';
+import * as _ from 'lodash';
 import * as RandExp from 'randexp';
 
-import { AttackOptions, BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload, STRING_ATTACKS } from '../attack';
+
+import { AttackOptions, BasePayload, InternalSchema } from './base-payload';
 
 enum StringConstraint {
 
@@ -147,10 +148,19 @@ export class StringPayload extends BasePayload {
         // If we are dealing with a potential file path input, we can add a new set
         // of dedicated path traversal attacks.
         if (options?.keyName?.match(/(path|file|doc|image|upload)/i)) {
-            baseCollection = {
+            baseCollection = [
                 ...STRING_ATTACKS.PATH_TRAVERSAL,
                 ...baseCollection
-            }
+            ];
+        }
+
+        // If we are dealing with a potential phone numbers, we may add another
+        // range of attacks linked to mobile phones.
+        if (options?.keyName?.match(/(phone|line|contact|mobile)/i)) {
+            baseCollection = [
+                ...STRING_ATTACKS.PHONE,
+                ...baseCollection
+            ];
         }
 
         return baseCollection;

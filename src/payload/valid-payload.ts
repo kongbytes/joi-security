@@ -1,7 +1,8 @@
 import * as Joi from '@hapi/joi';
 
-import { BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload } from '../attack';
+
+import { BasePayload, InternalSchema } from './base-payload';
 
 export class ValidPayload extends BasePayload {
 
