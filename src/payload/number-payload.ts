@@ -1,10 +1,33 @@
 import * as Joi from '@hapi/joi';
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
+
 import { AttackPayload, NUMBER_ATTACKS } from '../attack';
+import { BasePayload, InternalSchema } from './base-payload';
+
+enum NumberConstraint {
+
+    // Type constraints
+    integer = 'integer',
+    precision = 'precision',
+
+    // Range constraints
+    greater = 'greater',
+    less = 'less',
+    max = 'max',
+    min = 'min',
+    negative = 'negative',
+    positive = 'positive',
+    unsafe = 'unsafe',
+
+    // Strict constraints
+    multiple = 'multiple',
+    port = 'port',
+    sign = 'sign'
+
+}
 
 export class NumberPayload extends BasePayload {
 
-    public getKind() {
+    public getKind(): string {
         return 'number';
     }
 
@@ -48,33 +71,11 @@ export class NumberPayload extends BasePayload {
         return 5;
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
 
         return [
             ...NUMBER_ATTACKS.COMMON
         ];
     }
-
-}
-
-enum NumberConstraint {
-
-    // Type constraints
-    integer = 'integer',
-    precision = 'precision',
-
-    // Range constraints
-    greater = 'greater',
-    less = 'less',
-    max = 'max',
-    min = 'min',
-    negative = 'negative',
-    positive = 'positive',
-    unsafe = 'unsafe',
-
-    // Strict constraints
-    multiple = 'multiple',
-    port = 'port',
-    sign = 'sign'
 
 }

@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import * as chalk from 'chalk';
 
-import { ResultBag } from './result-bag';
 import { BaseFormat } from './base-format';
+import { ResultBag } from './result-bag';
 import { SeverityLevel } from '../severity-level';
 
 export class ConsoleFormat extends BaseFormat {

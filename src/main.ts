@@ -7,13 +7,13 @@
 // - Possible to create standalone version for browser usage?
 
 import * as _ from 'lodash';
-import { readFileSync } from 'fs';
 import * as yargs from 'yargs';
+import { readFileSync } from 'fs';
 
-import { generatePayload } from './payload';
 import { ConsoleFormat, ResultBag, WebFormat } from './output';
+import { generatePayload } from './payload';
 
-function scanCode(filePath: string, options: { outputFormat: string, ignore?: string[], select?: string[] }) {
+function scanCode(filePath: string, options: { outputFormat: string; ignore?: string[]; select?: string[] }): void {
 
     if (!filePath) {
         throw new Error(`File containing the Joi validation schema must be provided`);

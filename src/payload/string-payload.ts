@@ -1,12 +1,43 @@
-import * as RandExp from 'randexp';
 import * as Joi from '@hapi/joi';
+import * as RandExp from 'randexp';
 
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
+import { AttackOptions, BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload, STRING_ATTACKS } from '../attack';
+
+enum StringConstraint {
+
+    // Case constraints
+    case = 'case',
+
+    // Length constraints
+    length = 'length',
+    min = 'min',
+    max = 'max',
+
+    // Pattern constraints
+    base64 = 'base64',
+    dataUri = 'dataUri',
+    domain = 'domain',
+    email = 'email',
+    hostname = 'hostname',
+    ip = 'ip',
+    pattern = 'pattern',
+    uri = 'uri',
+
+    // Blacklisted constraints
+    alphanum = 'alphanum',
+    creditCard = 'creditCard',
+    guid = 'guid',
+    hex = 'hex',
+    isoDate = 'isoDate',
+    isoDuration = 'isoDuration',
+    token = 'token'
+
+}
 
 export class StringPayload extends BasePayload {
 
-    public getKind() {
+    public getKind(): string {
         return 'string';
     }
 
@@ -109,36 +140,5 @@ export class StringPayload extends BasePayload {
 
         return baseCollection;
     }
-
-}
-
-enum StringConstraint {
-
-    // Case constraints
-    case = 'case',
-
-    // Length constraints
-    length = 'length',
-    min = 'min',
-    max = 'max',
-
-    // Pattern constraints
-    base64 = 'base64',
-    dataUri = 'dataUri',
-    domain = 'domain',
-    email = 'email',
-    hostname = 'hostname',
-    ip = 'ip',
-    pattern = 'pattern',
-    uri = 'uri',
-
-    // Blacklisted constraints
-    alphanum = 'alphanum',
-    creditCard = 'creditCard',
-    guid = 'guid',
-    hex = 'hex',
-    isoDate = 'isoDate',
-    isoDuration = 'isoDuration',
-    token = 'token'
 
 }

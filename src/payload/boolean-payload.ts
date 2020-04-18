@@ -1,22 +1,21 @@
-import * as Joi from '@hapi/joi';
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import { AttackPayload } from '../attack';
+import { BasePayload } from './base-payload';
 
 export class BooleanPayload extends BasePayload {
 
-    public getKind() {
+    public getKind(): string {
         return 'boolean';
     }
 
-    public buildFromSchema(rawSchema: Joi.Schema & InternalSchema): BooleanPayload {
+    public buildFromSchema(): BooleanPayload {
         return this;
     }
 
-    public generateMock() {
+    public generateMock(): boolean {
         return true;
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
         return [];
     }
 

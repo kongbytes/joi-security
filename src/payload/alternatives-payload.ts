@@ -1,14 +1,15 @@
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
-import * as Joi from '@hapi/joi';
 import * as _ from 'lodash';
-import { generatePayload } from './utils';
+import * as Joi from '@hapi/joi';
+
+import { BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload } from '../attack';
+import { generatePayload } from './utils';
 
 export class AltenativesPayload extends BasePayload {
 
     private alternatives: BasePayload[] = [];
 
-    public getKind() {
+    public getKind(): string {
         return 'alternatives';
     }
 
@@ -20,12 +21,12 @@ export class AltenativesPayload extends BasePayload {
         return this;
     }
 
-    public generateMock() {
+    public generateMock(): unknown {
 
         return this.alternatives[0].generateMock();
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
 
         const attacks = this.alternatives.map(alternativePayload => alternativePayload.generateAttacks());
         return _.flatten(attacks);

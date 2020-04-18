@@ -1,6 +1,7 @@
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
-import * as Joi from '@hapi/joi';
 import * as _ from 'lodash';
+import * as Joi from '@hapi/joi';
+
+import { BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload } from '../attack';
 import { generatePayload } from './utils';
 
@@ -8,7 +9,7 @@ export class ArrayPayload extends BasePayload {
 
     public allowedPayloads: BasePayload[] = [];
 
-    public getKind() {
+    public getKind(): string {
         return 'array';
     }
 
@@ -22,11 +23,11 @@ export class ArrayPayload extends BasePayload {
         return this;
     }
 
-    public generateMock() {
+    public generateMock(): unknown[] {
         return this.allowedPayloads.map(allowedPayload => allowedPayload.generateMock());
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
 
         const allAttacks = _.flatten(this.allowedPayloads.map(allowedPayload => allowedPayload.generateAttacks()));
 

@@ -1,16 +1,17 @@
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 import * as Joi from '@hapi/joi';
+
+import { BasePayload, InternalSchema } from './base-payload';
 import { AttackPayload } from '../attack';
 
 export class ValidPayload extends BasePayload {
 
     private validValues: unknown[] = [];
 
-    public getKind() {
+    public getKind(): string {
         return 'valid';
     }
     
-    public buildFromSchema(rawSchema: Joi.Schema & InternalSchema) {
+    public buildFromSchema(rawSchema: Joi.Schema & InternalSchema): ValidPayload {
 
         if (!rawSchema._valids) {
             return this;
@@ -24,7 +25,7 @@ export class ValidPayload extends BasePayload {
         return this.validValues[0];
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
         return [];
     }
 

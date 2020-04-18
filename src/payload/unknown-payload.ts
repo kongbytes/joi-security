@@ -1,23 +1,22 @@
-import * as Joi from '@hapi/joi';
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
-import { SeverityLevel } from '../severity-level';
 import { AttackPayload, STRING_ATTACKS } from '../attack';
+import { BasePayload } from './base-payload';
+import { SeverityLevel } from '../severity-level';
 
 export class UnknownPayload extends BasePayload {
 
-    public getKind() {
+    public getKind(): string {
         return 'unknown';
     }
     
-    public buildFromSchema(rawSchema: Joi.Schema & InternalSchema) {
+    public buildFromSchema(): UnknownPayload {
         return this;
     }
 
-    public generateMock() {
+    public generateMock(): unknown {
         return 'Unknown';
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
 
         return [
             ...STRING_ATTACKS.COMMON,

@@ -1,11 +1,10 @@
-import * as _ from 'lodash';
 import { SeverityLevel } from '../severity-level';
 
 export class ResultBag {
 
     private readonly recordsCollection: ResultRecord[] = [];
 
-    public addResult(record: ResultRecord) {
+    public addResult(record: ResultRecord): void {
         this.recordsCollection.push(record);
     }
 

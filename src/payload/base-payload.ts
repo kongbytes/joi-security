@@ -13,12 +13,12 @@ export abstract class BasePayload {
 
     public abstract generateAttacks(options?: AttackOptions): AttackPayload[];
 
-    public addConstraint(item: AttackConstraint) {
+    public addConstraint(item: AttackConstraint): void {
         this.attackConstraints.push(item);
     }
 
-    public hasConstraint(name: unknown) {
-        return this.attackConstraints.find(constraint => constraint.name === name);
+    public hasConstraint(name: unknown): boolean {
+        return this.attackConstraints.find(constraint => constraint.name === name) !== undefined;
     }
 
     public getConstraint(name: unknown): any {
@@ -29,15 +29,16 @@ export abstract class BasePayload {
 
 export interface InternalSchema {
 
-    _rules?: { name: string, args: any }[];
+    _rules?: {
+        name: string;
+        args: any;
+    }[];
 
     _valids?: { _values: Set<any> };
 
     '$_terms'?: {
-
-        items?: Joi.Schema[]
-
-    } 
+        items?: Joi.Schema[];
+    };
 
 }
 
@@ -50,6 +51,6 @@ export interface AttackConstraint {
 
 export interface AttackOptions {
 
-    keyName?: string
+    keyName?: string;
 
 }

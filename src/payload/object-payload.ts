@@ -1,22 +1,21 @@
 import * as Joi from '@hapi/joi';
 
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
-import { StringPayload } from './string-payload';
-import { NumberPayload } from './number-payload';
+import { BasePayload, InternalSchema } from './base-payload';
 import { AltenativesPayload } from './alternatives-payload';
 import { ArrayPayload } from './array-payload';
-import { BooleanPayload } from './boolean-payload';
-import { UnknownPayload } from './unknown-payload';
-import { generatePayload } from './utils';
-
-import { SeverityLevel } from '../severity-level';
 import { AttackPayload } from '../attack';
+import { BooleanPayload } from './boolean-payload';
+import { generatePayload } from './utils';
+import { NumberPayload } from './number-payload';
+import { SeverityLevel } from '../severity-level';
+import { StringPayload } from './string-payload';
+import { UnknownPayload } from './unknown-payload';
 
 export class ObjectPayload extends BasePayload {
 
     public entries: Map<string, ObjectPayload | StringPayload | NumberPayload | AltenativesPayload | ArrayPayload | BooleanPayload | UnknownPayload> = new Map();
 
-    public getKind() {
+    public getKind(): string {
         return 'object';
     }
 
@@ -29,11 +28,11 @@ export class ObjectPayload extends BasePayload {
         return this;
     }
 
-    public addEntry(key: string, value: any) {
+    public addEntry(key: string, value: any): void {
         this.entries.set(key, value);
     }
 
-    public generateMock() {
+    public generateMock(): any {
 
         const targetObject: any = {}
 
@@ -44,7 +43,7 @@ export class ObjectPayload extends BasePayload {
         return targetObject;
     }
 
-    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+    public generateAttacks(): AttackPayload[] {
 
         const validObject = this.generateMock();
 

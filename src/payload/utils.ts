@@ -1,13 +1,13 @@
 import * as Joi from '@hapi/joi';
 
-import { BasePayload } from './base-payload';
-import { StringPayload } from './string-payload';
-import { NumberPayload } from './number-payload';
+import { BasePayload, InternalSchema } from './base-payload';
 import { AltenativesPayload } from './alternatives-payload';
 import { ArrayPayload } from './array-payload';
 import { BooleanPayload } from './boolean-payload';
-import { UnknownPayload } from './unknown-payload';
+import { NumberPayload } from './number-payload';
 import { ObjectPayload } from './object-payload';
+import { StringPayload } from './string-payload';
+import { UnknownPayload } from './unknown-payload';
 import { ValidPayload } from './valid-payload';
 
 export function generatePayload(unknownSchema: unknown): BasePayload {
@@ -18,12 +18,12 @@ export function generatePayload(unknownSchema: unknown): BasePayload {
 
     const schema = unknownSchema as Joi.Schema;
 
-    if ((schema as any)['_valids']) {
+    if ((schema as InternalSchema)['_valids']) {
         return new ValidPayload().buildFromSchema(schema);
     }
 
     if (schema.type === 'boolean') {
-        return new BooleanPayload().buildFromSchema(schema);
+        return new BooleanPayload().buildFromSchema();
     }
 
     if (schema.type === 'string') {
@@ -45,10 +45,6 @@ export function generatePayload(unknownSchema: unknown): BasePayload {
     if (schema.type === 'object') {
         return new ObjectPayload().buildFromSchema(schema);
     }
-
-    // TODO Looks like 'any'... WE DE NOT SUPPORT CURRENTLY:
-    // - refs
-    // - valid
 
     return new UnknownPayload();
 }
