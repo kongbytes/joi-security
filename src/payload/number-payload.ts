@@ -61,14 +61,26 @@ export class NumberPayload extends BasePayload {
     public generateMock(): number {
 
         if (this.hasConstraint(NumberConstraint.max)) {
-            return this.getConstraint(NumberConstraint.max).limit - 1;
+            return this.getConstraint(NumberConstraint.max).limit as number - 1;
+        }
+
+        if (this.hasConstraint(NumberConstraint.less)) {
+            return this.getConstraint(NumberConstraint.less).limit as number - 1;
         }
 
         if (this.hasConstraint(NumberConstraint.min)) {
-            return this.getConstraint(NumberConstraint.min).limit + 1;
+            return this.getConstraint(NumberConstraint.min).limit as number + 1;
         }
 
-        return 5;
+        if (this.hasConstraint(NumberConstraint.greater)) {
+            return this.getConstraint(NumberConstraint.greater).limit as number + 1;
+        }
+
+        if (this.hasConstraint(NumberConstraint.negative)) {
+            return this.getConstraint(NumberConstraint.min).limit as number + 1;
+        }
+
+        return this.hasConstraint(NumberConstraint.negative) ? -5 : 5;
     }
 
     public generateAttacks(): AttackPayload[] {

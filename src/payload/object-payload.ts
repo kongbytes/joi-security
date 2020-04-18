@@ -1,19 +1,13 @@
 import * as Joi from '@hapi/joi';
 
 import { BasePayload, InternalSchema } from './base-payload';
-import { AltenativesPayload } from './alternatives-payload';
-import { ArrayPayload } from './array-payload';
 import { AttackPayload } from '../attack';
-import { BooleanPayload } from './boolean-payload';
 import { generatePayload } from './utils';
-import { NumberPayload } from './number-payload';
 import { SeverityLevel } from '../severity-level';
-import { StringPayload } from './string-payload';
-import { UnknownPayload } from './unknown-payload';
 
 export class ObjectPayload extends BasePayload {
 
-    public entries: Map<string, ObjectPayload | StringPayload | NumberPayload | AltenativesPayload | ArrayPayload | BooleanPayload | UnknownPayload> = new Map();
+    public entries: Map<string, BasePayload> = new Map();
 
     public getKind(): string {
         return 'object';
@@ -28,13 +22,13 @@ export class ObjectPayload extends BasePayload {
         return this;
     }
 
-    public addEntry(key: string, value: any): void {
+    public addEntry(key: string, value: BasePayload): void {
         this.entries.set(key, value);
     }
 
-    public generateMock(): any {
+    public generateMock(): { [keyName: string]: unknown } {
 
-        const targetObject: any = {}
+        const targetObject: { [keyName: string]: unknown } = {}
 
         for (const [keyName, value] of this.entries) {
             targetObject[keyName] = value.generateMock();

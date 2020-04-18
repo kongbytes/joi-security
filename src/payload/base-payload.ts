@@ -21,8 +21,8 @@ export abstract class BasePayload {
         return this.attackConstraints.find(constraint => constraint.name === name) !== undefined;
     }
 
-    public getConstraint(name: unknown): any {
-        return this.attackConstraints.find(constraint => constraint.name === name)?.details;
+    public getConstraint(name: unknown): { [detail: string]: unknown } {
+        return this.attackConstraints.find(constraint => constraint.name === name)?.details || {};
     }
 
 }
@@ -31,10 +31,10 @@ export interface InternalSchema {
 
     _rules?: {
         name: string;
-        args: any;
+        args: { [arg: string]: unknown };
     }[];
 
-    _valids?: { _values: Set<any> };
+    _valids?: { _values: Set<unknown> };
 
     '$_terms'?: {
         items?: Joi.Schema[];
@@ -45,7 +45,7 @@ export interface InternalSchema {
 export interface AttackConstraint {
 
     name: string;
-    details?: any;
+    details?: { [detail: string]: unknown };
 
 }
 

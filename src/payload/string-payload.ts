@@ -98,7 +98,7 @@ export class StringPayload extends BasePayload {
         }
 
         if (this.hasConstraint(StringConstraint.pattern)) {
-            return new RandExp(this.getConstraint(StringConstraint.pattern).regex).gen();
+            return new RandExp(this.getConstraint(StringConstraint.pattern).regex as string).gen();
         }
 
         if (this.hasConstraint(StringConstraint.uri)) {
@@ -112,11 +112,11 @@ export class StringPayload extends BasePayload {
         let baseString = 'a';
 
         if (this.hasConstraint(StringConstraint.length)) {
-            const expectedLength: number = this.getConstraint(StringConstraint.length).limit;
+            const expectedLength = this.getConstraint(StringConstraint.length).limit as number;
             baseString = _.repeat(baseString, expectedLength);
         }
         else if (this.hasConstraint(StringConstraint.min)) {
-            const expectedMinLength: number = this.getConstraint(StringConstraint.min).limit;
+            const expectedMinLength = this.getConstraint(StringConstraint.min).limit as number;
             baseString = _.repeat(baseString, expectedMinLength);
         }
 
