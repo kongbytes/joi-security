@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as Joi from '@hapi/joi';
 import * as RandExp from 'randexp';
 
@@ -60,6 +61,9 @@ export class StringPayload extends BasePayload {
             else if (stringRule.name === StringConstraint.max) {
                 this.addConstraint({ name: StringConstraint.max, details: { limit: stringRule.args.limit } })
             }
+            else if (stringRule.name === StringConstraint.length) {
+                this.addConstraint({ name: StringConstraint.length, details: { limit: stringRule.args.limit } })
+            }
             else if (stringRule.name === StringConstraint.pattern || stringRule.name === 'regex') {
                 this.addConstraint({ name: StringConstraint.pattern, details: { regex: stringRule.args.regex } })
             }
@@ -101,12 +105,23 @@ export class StringPayload extends BasePayload {
             return 'https://domain.com';
         }
 
-        if (this.hasConstraint(StringConstraint.alphanum)) {
-            return 'alphanum';
+        // From now, we should be dealing with 'loose validation' strings such
+        // as alphanum, token or hex. We will thus focus on enforcing length and
+        // case rules.
+
+        let baseString = 'a';
+
+        if (this.hasConstraint(StringConstraint.length)) {
+            const expectedLength: number = this.getConstraint(StringConstraint.length).limit;
+            baseString = _.repeat(baseString, expectedLength);
+        }
+        else if (this.hasConstraint(StringConstraint.min)) {
+            const expectedMinLength: number = this.getConstraint(StringConstraint.min).limit;
+            baseString = _.repeat(baseString, expectedMinLength);
         }
 
         // This string should pass the alphanum, token & hex format validation
-        return 'Abc123';
+        return baseString;
     }
 
     public generateAttacks(options?: AttackOptions): AttackPayload[] {
