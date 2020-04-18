@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node src/main.ts",
     "build": "tsc",
-    "lint": "eslint -c .eslintrc.js src/**/*.ts"
+    "lint": "eslint -c .eslintrc.js src/**/*.ts",
+    "prepublishOnly": "npm run build"
   },
   "author": "Saluki",
   "license": "AGPL-3.0",
