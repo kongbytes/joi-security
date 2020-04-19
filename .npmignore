@@ -5,6 +5,7 @@ src/
 .editorconfig
 .gitignore
 tsconfig.json
+.eslintrc.js 
 
 # Node logs
 logs

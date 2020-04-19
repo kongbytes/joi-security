@@ -9,7 +9,7 @@ import { generatePayload } from './utils';
 
 export class ObjectPayload extends BasePayload {
 
-    public entries: Map<string, BasePayload> = new Map();
+    public entries: Map<string, BasePayload> = new Map<string, BasePayload>();
 
     public getKind(): string {
         return 'object';

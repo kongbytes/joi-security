@@ -16,7 +16,7 @@ export class AltenativesPayload extends BasePayload {
 
     public buildFromSchema(rawSchema: Joi.Schema & InternalSchema): AltenativesPayload {
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
         this.alternatives = rawSchema['$_terms'].matches.map((schema: any) => generatePayload(schema.schema));
 
         return this;

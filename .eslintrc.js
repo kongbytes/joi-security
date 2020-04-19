@@ -45,6 +45,12 @@ module.exports = {
         '@typescript-eslint/no-floating-promises': ['error'],
         '@typescript-eslint/no-require-imports': ['error'],
         '@typescript-eslint/no-throw-literal': ['error'],
+        '@typescript-eslint/promise-function-async': ['error'],
+        '@typescript-eslint/prefer-readonly': ['error'],
+        '@typescript-eslint/prefer-for-of': ['error'],
+        '@typescript-eslint/prefer-as-const': ['error'],
+        '@typescript-eslint/no-unsafe-return': ['error'],
+        '@typescript-eslint/no-unsafe-assignment': ['error'],
 
         'import/no-unresolved': ['error'],
         'import/named': ['error'],
