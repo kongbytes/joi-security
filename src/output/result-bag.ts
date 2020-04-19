@@ -20,6 +20,7 @@ export interface ResultRecord {
     severity: SeverityLevel;
     messages: string[];
     payload: unknown;
+    tags: string[];
 
 }
 

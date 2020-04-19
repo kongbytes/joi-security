@@ -50,6 +50,20 @@ Joi security will also attempt to detect the input content based on key names an
 
 Credits to the awesome [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/) repository for the advanced attacks.
 
+## Options & advanced usage
+
+Changing the output format to HTML, defaults to `console` output.
+
+```bash
+joi-security scan ./schema.js --output=web
+```
+
+Each attack may be linked to a set of tags that are displayed below below the payloads (`#xss,advanced,div`). Ignore a set of malicious payload tags with the `ignore` option, which may provide more accurate results.
+
+```bash
+joi-security scan ./schema.js --ignore=sql,markdown,overflow,aws
+```
+
 ## Contributing
 
 Clone this project and make sure to have a complete Node installation (including NPM) on your workstation. Please note that this project has currently been tested with Node LTS 12.

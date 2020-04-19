@@ -6,6 +6,7 @@
 // - Add support for extended outputs (plain, YAML, Burp, ZAP, ...)
 // - Possible to create standalone version for browser usage?
 
+import * as Joi from '@hapi/joi';
 import { readFileSync } from 'fs';
 import * as _ from 'lodash';
 import * as yargs from 'yargs';
@@ -13,7 +14,7 @@ import * as yargs from 'yargs';
 import { ConsoleFormat, ResultBag, WebFormat } from './output';
 import { generatePayload } from './payload';
 
-function scanCode(filePath: string, options: { outputFormat: string; ignore?: string[]; select?: string[] }): void {
+function scanCode(filePath: string, options: { outputFormat: string; ignore: string[] }): void {
 
     if (!filePath) {
         throw new Error(`File containing the Joi validation schema must be provided`);
@@ -31,14 +32,14 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore?: st
         throw new Error(`File containing the Joi validation schema not readable (${err.message})`);
     }
 
-    const schema = eval(`const Joi = require('@hapi/joi');${fileContent}`);
-
+    const schema = eval(`const Joi = require('@hapi/joi');${fileContent}`) as Joi.Schema;
     const basePayload = generatePayload(schema);
 
     // ----
 
     const validMock = basePayload.generateMock();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { value, error } = schema.validate(validMock);
 
     if (error) {
@@ -54,13 +55,18 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore?: st
 
     for (const attack of generatedAttacks) {
 
+        if (attack.tags && _.intersection(attack.tags, options.ignore).length > 0) {
+            continue;
+        }
+
         const { error } = schema.validate(attack.payload);
 
         resultBag.addResult({
-            result: (error) ? 'blocked' : 'bypassed',
+            result: error ? 'blocked' : 'bypassed',
             severity: attack.severity,
             messages: attack.messages,
-            payload: attack.payload
+            payload: attack.payload,
+            tags: attack.tags || []
         });
     }
 
@@ -76,15 +82,33 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore?: st
 
 yargs
     .command({
-        command: 'scan <file>',
+        command: 'scan <file> [--ignore=phone,markdown] [--output=console]',
         aliases: ['s'],
-        builder: (yargs) => yargs.default('value', 'true'),
+        builder: (yargs) => {
+            return yargs
+                .positional('file', {
+                    describe: 'JS file containing a Joi schema',
+                    type: 'string'
+                })
+                .option('ignore', {
+                    describe: 'Ignore comma-separated attack tags',
+                    default: '',
+                    type: 'string'
+                })
+                .option('output', {
+                    describe: 'Output format for attack results',
+                    choices: ['console', 'web'],
+                    default: 'console',
+                    type: 'string'
+                })
+        },
         handler: (argv) => {
 
             try {
-
+        
                 scanCode(`${argv.file}`, {
-                    outputFormat: (_.isString(argv.output)) ? argv.output : 'console',
+                    outputFormat: _.isString(argv.output) ? argv.output : 'console',
+                    ignore: _.isString(argv.ignore) && argv.ignore.length > 0 ? argv.ignore.split(',') : []
                 });
                 process.exit(0);
         
@@ -100,6 +124,5 @@ yargs
         }
     })
     .showHelpOnFail(true)
-    .help()
     .demandCommand()
     .argv

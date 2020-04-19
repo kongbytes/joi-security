@@ -27,6 +27,12 @@ export class ConsoleFormat extends BaseFormat {
         for (const [firstMessage, records] of results) {
 
             output += `${this.formatLevel(records[0].severity)} ${chalk.whiteBright(firstMessage)} ${chalk.grey(`(${ records.length } payloads bypassed)`)}\r\n`;
+            
+            const allTags = _.chain(records.map(record => record.tags)).flatten().uniq().value();
+            if (allTags.length > 0) {
+                output += `#${allTags}\r\n`;
+            }
+            
             output += `\r\n`;
 
             for (const record of records) {
