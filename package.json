@@ -2,6 +2,9 @@
   "name": "joi-security",
   "version": "0.2.4",
   "description": "Detect security flaws in Joi validation schemas",
+  "repository": {
+    "url": "https://github.com/Saluki/joi-security"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/main.ts",
@@ -19,21 +22,21 @@
     "chalk": "^4.1.0",
     "lodash": "^4.17.20",
     "randexp": "^0.5.3",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
-    "@types/hapi__joi": "^17.1.5",
-    "@types/lodash": "^4.14.161",
+    "@types/hapi__joi": "^17.1.6",
+    "@types/lodash": "^4.14.165",
     "@types/node": "^14.0.0",
-    "@types/yargs": "^15.0.6",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
-    "eslint": "^7.9.0",
-    "eslint-plugin-import": "^2.22.0",
+    "@types/yargs": "^15.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "eslint": "^7.14.0",
+    "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.1.2"
   },
   "husky": {
     "pre-commit": "npm run lint"
