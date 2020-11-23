@@ -7,6 +7,7 @@
 // - Possible to create standalone version for browser usage?
 
 import * as Joi from '@hapi/joi';
+import * as chalk from 'chalk';
 import { readFileSync } from 'fs';
 import * as _ from 'lodash';
 import * as yargs from 'yargs';
@@ -122,6 +123,28 @@ yargs
             }
 
         }
+    })
+    // eslint-disable-next-line @typescript-eslint/no-empty-function,no-empty-function
+    .command('$0', 'xxx', () => {}, () => {
+
+        console.log('');
+        console.log('Scan your Joi validation schemas using this joi-security CLI.');
+        console.log('Keep the Joi schema to analyze as last statement in your file,');
+        console.log('as it will be otherwise ignored.');
+        console.log('');
+
+        console.log(chalk.bold('Scan a single Joi schema'));
+        console.log(chalk.yellow('joi-security scan ./my-schema.js'));
+        console.log('');
+
+        console.log(chalk.bold('Ignore attacks'));
+        console.log(chalk.yellow('joi-security scan ./my-schema.js --ignore=postgresql,aws'));
+        console.log('');
+
+        console.log(chalk.bold('Output to a web format'));
+        console.log(chalk.yellow('joi-security scan ./my-schema.js --output=web'));
+        console.log('');
+
     })
     .showHelpOnFail(true)
     .demandCommand()
