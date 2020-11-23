@@ -7,6 +7,38 @@ import { ResultBag } from './result-bag';
 
 export class WebFormat extends BaseFormat {
 
+    private readonly RAW_TEMPLATE = `
+        <!DOCTYPE html>
+        <html style="background: #ecf0f1;">
+            <head>
+                <title>Joi security | results</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" integrity="sha256-WLKGWSIJYerRN8tbNGtXWVYnUM5wMJTXD8eG4NtGcDM=" crossorigin="anonymous">
+            </head>
+            <body>
+                <div class="container is-fluid">
+                    <div class="mt-6 content">
+                        <h2>Joi security results</h2>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-half">
+
+                            <div class="card">
+                                <div class="card-content content">
+                                    <h4>Attack categories</h4>
+                                    <% for (const [firstMessage, records] of results) { %>
+                                        <span class="tag"><%- formatLevel(records[0].severity) %></span>
+                                        <a href="#"><%- firstMessage %></a> (<%- records.length %> bypassed) <br>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>
+    `;
+
     constructor(
         private readonly resultBag: ResultBag
     ) {
@@ -22,20 +54,11 @@ export class WebFormat extends BaseFormat {
             .toPairs()
             .value();
 
-        let output = '<!DOCTYPE><html><body>';
-        for (const [firstMessage, records] of results) {
-
-            output += `<b>${this.formatLevel(records[0].severity)} ${firstMessage}</b> (${records.length} payloads bypassed)}<br>`;
-            output += `\r\n`;
-
-            for (const record of records) {
-                output += `<pre>${JSON.stringify(record.payload, null, '  ')}</pre>`;
-            }
-
-            output += `\r\n`;
-        }
-
-        return `${output}</body></html>`;
+        return _.template(this.RAW_TEMPLATE)({
+            results,
+            allRecords: this.resultBag.records,
+            formatLevel: this.formatLevel
+        });
     }
 
     private formatLevel(level: SeverityLevel): string {
