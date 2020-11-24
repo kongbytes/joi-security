@@ -45,7 +45,7 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             severity: SeverityLevel.HIGH,
             messages: ['Advanced PostgreSQL injection'],
             payload: `';create table persistent (data varchar(200));--`,
-            tags: ['sql', 'potgresql', 'advanced']
+            tags: ['sql', 'postgresql', 'advanced']
         },
         {
             severity: SeverityLevel.MEDIUM,
