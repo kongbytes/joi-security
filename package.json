@@ -7,15 +7,15 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/main.ts",
-    "build": "tsc",
+    "dev": "ts-node src/cli/main.ts",
+    "build": "rimraf ./dist && tsc",
     "lint": "eslint -c .eslintrc.js src/**/*.ts",
     "prepublishOnly": "npm run build"
   },
   "author": "Saluki",
   "license": "AGPL-3.0",
   "bin": {
-    "joi-security": "./dist/main.js"
+    "joi-security": "./dist/cli/main.js"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -35,6 +35,7 @@
     "eslint": "^7.14.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   },

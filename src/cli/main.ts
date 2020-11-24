@@ -12,8 +12,9 @@ import { readFileSync } from 'fs';
 import * as _ from 'lodash';
 import * as yargs from 'yargs';
 
-import { ConsoleFormat, ResultBag, WebFormat } from './output';
-import { generatePayload } from './payload';
+import { scanSchema } from '../lib';
+
+import { ConsoleFormat, WebFormat } from './output';
 
 function scanCode(filePath: string, options: { outputFormat: string; ignore: string[] }): void {
 
@@ -34,42 +35,9 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore: str
     }
 
     const schema = eval(`const Joi = require('@hapi/joi');${fileContent}`) as Joi.Schema;
-    const basePayload = generatePayload(schema);
-
-    // ----
-
-    const validMock = basePayload.generateMock();
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { value, error } = schema.validate(validMock);
-
-    if (error) {
-        console.log(value);
-        console.log(error);
-        throw new Error('Expecting generated mock to pass the Joi validation schema but failed');
-    }
-
-    // ------------
-
-    const generatedAttacks = basePayload.generateAttacks();
-    const resultBag = new ResultBag();
-
-    for (const attack of generatedAttacks) {
-
-        if (attack.tags && _.intersection(attack.tags, options.ignore).length > 0) {
-            continue;
-        }
-
-        const { error } = schema.validate(attack.payload);
-
-        resultBag.addResult({
-            result: error ? 'blocked' : 'bypassed',
-            severity: attack.severity,
-            messages: attack.messages,
-            payload: attack.payload,
-            tags: attack.tags || []
-        });
-    }
+    const resultBag = scanSchema(schema, { 
+        ignoreTags: options.ignore || []
+    });
 
     if (options.outputFormat === 'console') {
         const output = new ConsoleFormat(resultBag).process();

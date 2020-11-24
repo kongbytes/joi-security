@@ -1,10 +1,9 @@
 import * as chalk from 'chalk';
 import * as _ from 'lodash';
 
-import { SeverityLevel } from '../severity-level';
+import { ResultBag, SeverityLevel } from '../../lib';
 
 import { BaseFormat } from './base-format';
-import { ResultBag } from './result-bag';
 
 export class ConsoleFormat extends BaseFormat {
 

@@ -1,4 +1,4 @@
-import { SeverityLevel } from '../severity-level';
+import { SeverityLevel } from './severity-level';
 
 export class ResultBag {
 
