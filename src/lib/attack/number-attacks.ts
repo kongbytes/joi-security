@@ -23,6 +23,21 @@ export const NUMBER_ATTACKS: { [key: string]: AttackPayload[] } = {
             payload: 54294967295,
             tags: ['overflow']
         }
+    ],
+
+    YEAR: [
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Unexpected behavior due to suspicious year'],
+            payload: 42,
+            tags: ['year']
+        },
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Unexpected behavior due to suspicious year'],
+            payload: 7600,
+            tags: ['year']
+        }
     ]
 
 };

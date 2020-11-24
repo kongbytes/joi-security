@@ -163,6 +163,15 @@ export class StringPayload extends BasePayload {
             ];
         }
 
+        // If we are dealing with a potential password field, we may add another
+        // range of attacks linked to mobile phones.
+        if (options?.keyName?.match(/(password|secret)/i)) {
+            baseCollection = [
+                ...STRING_ATTACKS.PASSWORD,
+                ...baseCollection
+            ];
+        }
+
         return baseCollection;
     }
 

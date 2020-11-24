@@ -22,13 +22,21 @@ export class UnknownPayload extends BasePayload {
         return [
             ...STRING_ATTACKS.COMMON,
             {
-            severity: SeverityLevel.MEDIUM,
-            messages: ['May cause NoSQL injection'],
-            payload: {
-                query: {
-                    '$in': ['Admin', '4dm1n', 'admin', 'root', 'administrator']
+                severity: SeverityLevel.MEDIUM,
+                messages: ['May cause NoSQL injection'],
+                payload: {
+                    query: {
+                        '$in': ['Admin', '4dm1n', 'admin', 'root', 'administrator']
+                    }
+                }
+            },
+            {
+                severity: SeverityLevel.MEDIUM,
+                messages: ['May cause NoSQL injection'],
+                payload: {
+                    username: {'$gt': ''}, password: {'$gt': ''}
                 }
             }
-        }];
+        ];
     }
 }

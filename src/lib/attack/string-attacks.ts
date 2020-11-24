@@ -83,6 +83,12 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             payload: `[a](javascript:window.onerror=alert;throw%201)`,
             tags: ['xss', 'markdown']
         },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: ['XSS known WAF bypass'],
+            payload: 'anythinglr00</script><script>alert(document.domain)</script>uxldz',
+            tags: ['xss', 'waf-bypass']
+        }
         // Not possible now due to lack of output formatting
         /*{
             severity: SeverityLevel.LOW,
@@ -248,6 +254,15 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
             messages: ['Users may submit premium-rate telephone numbers'],
             payload: '+3290522726',
             tags: ['phone', 'belgium', 'international']
+        }
+    ],
+
+    PASSWORD: [
+        {
+            severity: SeverityLevel.INFO,
+            messages: ['Passwords vulnerable for brute-force attacks'],
+            payload: 'password',
+            tags: ['password']
         }
     ]
 

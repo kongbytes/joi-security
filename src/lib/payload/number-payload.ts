@@ -2,7 +2,7 @@ import * as Joi from '@hapi/joi';
 
 import { AttackPayload, NUMBER_ATTACKS } from '../attack';
 
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
 
 enum NumberConstraint {
 
@@ -84,7 +84,14 @@ export class NumberPayload extends BasePayload {
         return this.hasConstraint(NumberConstraint.negative) ? -5 : 5;
     }
 
-    public generateAttacks(): AttackPayload[] {
+    public generateAttacks(options?: AttackOptions): AttackPayload[] {
+
+        if (options?.keyName?.match(/(year)/i)) {
+            return [
+                ...NUMBER_ATTACKS.COMMON,
+                ...NUMBER_ATTACKS.YEAR
+            ];
+        }
 
         return [
             ...NUMBER_ATTACKS.COMMON
