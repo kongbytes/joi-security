@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi';
+import Joi from 'joi';
 
 import { AltenativesPayload } from './alternatives-payload';
 import { ArrayPayload } from './array-payload';

@@ -1,6 +1,6 @@
-import * as Joi from '@hapi/joi';
-import * as _ from 'lodash';
-import * as RandExp from 'randexp';
+import Joi from 'joi';
+import _ from 'lodash';
+import RandExp from 'randexp';
 
 import { AttackPayload, STRING_ATTACKS } from '../attack';
 

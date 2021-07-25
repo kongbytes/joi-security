@@ -1,10 +1,10 @@
-import * as Joi from '@hapi/joi';
-import * as _ from 'lodash';
+import Joi from 'joi';
+import _ from 'lodash';
 
 import { generatePayload } from './payload';
 import { ResultBag } from './result-bag';
 
-export function scanSchema(schema: Joi.Schema, options: { ignoreTags: string[] }): ResultBag {
+export function scanSchema(schema: Joi.Schema<unknown>, options: { ignoreTags: string[] }): ResultBag {
 
     const basePayload = generatePayload(schema);
 

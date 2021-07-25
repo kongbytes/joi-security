@@ -1,5 +1,5 @@
-import * as Joi from '@hapi/joi';
-import * as _ from 'lodash';
+import Joi from 'joi';
+import _ from 'lodash';
 
 import { AttackPayload } from '../attack';
 

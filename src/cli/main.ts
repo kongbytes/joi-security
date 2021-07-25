@@ -6,11 +6,12 @@
 // - Add support for extended outputs (plain, YAML, Burp, ZAP, ...)
 // - Possible to create standalone version for browser usage?
 
-import * as Joi from '@hapi/joi';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { readFileSync } from 'fs';
-import * as _ from 'lodash';
-import * as yargs from 'yargs';
+import Joi from 'joi';
+import _ from 'lodash';
+import { hideBin } from 'yargs/helpers';
+import yargs from 'yargs/yargs';
 
 import { scanSchema } from '../lib';
 
@@ -34,7 +35,7 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore: str
         throw new Error(`File containing the Joi validation schema not readable (${err.message})`);
     }
 
-    const schema = eval(`const Joi = require('@hapi/joi');${fileContent}`) as Joi.Schema;
+    const schema = eval(`const Joi = require('joi');${fileContent}`) as Joi.Schema<unknown>;
     const resultBag = scanSchema(schema, { 
         ignoreTags: options.ignore || []
     });
@@ -49,7 +50,8 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore: str
     }
 }
 
-yargs
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+yargs(hideBin(process.argv))
     .command({
         command: 'scan <file> [--ignore=phone,markdown] [--output=console]',
         aliases: ['s'],
