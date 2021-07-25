@@ -58,7 +58,7 @@ Changing the output format to HTML, defaults to `console` output.
 joi-security scan ./schema.js --output=web
 ```
 
-Each attack may be linked to a set of tags that are displayed below below the payloads (`#xss,advanced,div`). Ignore a set of malicious payload tags with the `ignore` option, which may provide more accurate results.
+Each attack may be linked to a set of tags that are displayed below below the payloads (`#xss,advanced`). Ignore a set of malicious payload tags with the `ignore` option, which may provide more accurate results.
 
 ```bash
 joi-security scan ./schema.js --ignore=sql,markdown,overflow,aws
