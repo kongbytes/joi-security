@@ -147,7 +147,7 @@ export class StringPayload extends BasePayload {
 
         // If we are dealing with a potential file path input, we can add a new set
         // of dedicated path traversal attacks.
-        if (options?.keyName?.match(/(path|file|doc|image|upload)/i)) {
+        if (options?.keyName?.match(/(path|file|doc|image|upload|picture|profil)/i)) {
             baseCollection = [
                 ...STRING_ATTACKS.PATH_TRAVERSAL,
                 ...baseCollection
@@ -156,7 +156,7 @@ export class StringPayload extends BasePayload {
 
         // If we are dealing with a potential phone numbers, we may add another
         // range of attacks linked to mobile phones.
-        if (options?.keyName?.match(/(phone|line|contact|mobile)/i)) {
+        if (options?.keyName?.match(/(phone|line|contact|mobile|tel|gsm)/i)) {
             baseCollection = [
                 ...STRING_ATTACKS.PHONE,
                 ...baseCollection
@@ -165,7 +165,7 @@ export class StringPayload extends BasePayload {
 
         // If we are dealing with a potential password field, we may add another
         // range of attacks linked to mobile phones.
-        if (options?.keyName?.match(/(password|secret)/i)) {
+        if (options?.keyName?.match(/(password|secret|key|cred|api)/i)) {
             baseCollection = [
                 ...STRING_ATTACKS.PASSWORD,
                 ...baseCollection

