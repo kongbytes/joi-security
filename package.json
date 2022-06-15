@@ -1,6 +1,6 @@
 {
   "name": "joi-security",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Detect security flaws in Joi validation schemas",
   "repository": {
     "url": "https://github.com/Saluki/joi-security"
