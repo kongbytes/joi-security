@@ -44,7 +44,7 @@ export class ConsoleFormat extends BaseFormat {
         const analytics = _.countBy(this.resultBag.records, record => record.result);
 
         output += `Blocked attacks   ${analytics['blocked'] || 0}\r\n`;
-        output += `Bypassed attacks  ${analytics['bypassed'] || 0}`;
+        output += chalk.bold(`Bypassed attacks  ${analytics['bypassed'] || 0}`);
         output += `\r\n`;
 
         return output;
@@ -53,19 +53,19 @@ export class ConsoleFormat extends BaseFormat {
     private formatLevel(level: SeverityLevel): string {
 
         if (level === SeverityLevel.CRITICAL) {
-            return chalk.bgRedBright('CRITICAL');
+            return chalk.bgRedBright(' CRITICAL ');
         }
         if (level === SeverityLevel.HIGH) {
-            return chalk.bgRedBright('HIGH');
+            return chalk.bold.bgRed(' HIGH ');
         }
         if (level === SeverityLevel.MEDIUM) {
-            return chalk.bgGreen('MEDIUM');
+            return chalk.bold.bgYellow.black(' MEDIUM ');
         }
         if (level === SeverityLevel.LOW) {
-            return chalk.bgGreen('LOW');
+            return chalk.bold.bgGreenBright.black(' LOW ');
         }
         if (level === SeverityLevel.INFO) {
-            return chalk.bgBlue('INFO');
+            return chalk.bold.bgBlue(' INFO ');
         }
 
         return '';

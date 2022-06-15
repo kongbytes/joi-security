@@ -6,6 +6,9 @@
     "url": "https://github.com/Saluki/joi-security"
   },
   "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
     "dev": "ts-node src/cli/main.ts",
     "build": "rimraf ./dist && tsc",
@@ -18,24 +21,24 @@
     "joi-security": "./dist/cli/main.js"
   },
   "dependencies": {
-    "joi": "^17.4.1",
-    "chalk": "^4.1.1",
+    "joi": "^17.6.0",
+    "chalk": "^4.0.0",
     "lodash": "^4.17.21",
     "randexp": "^0.5.3",
-    "yargs": "^17.0.1"
+    "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.171",
-    "@types/node": "^14.0.0",
-    "@types/yargs": "^17.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.4",
-    "eslint": "^7.31.0",
-    "eslint-plugin-import": "^2.23.4",
-    "husky": "^7.0.1",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^16.0.0",
+    "@types/yargs": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.17.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^8.0.1",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.1.0",
-    "typescript": "^4.3.5"
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
   },
   "husky": {
     "pre-commit": "npm run lint"

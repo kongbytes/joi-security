@@ -31,7 +31,8 @@ function scanCode(filePath: string, options: { outputFormat: string; ignore: str
     try {
         fileContent = readFileSync(filePath).toString();
     }
-    catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    catch (err: any) {
         throw new Error(`File containing the Joi validation schema not readable (${err.message})`);
     }
 
@@ -84,8 +85,8 @@ yargs(hideBin(process.argv))
                 process.exit(0);
         
             }
-            catch (err) {
-        
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            catch (err: any) {
                 console.log();
                 console.log(err.message);
                 console.log();
