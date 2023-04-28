@@ -4,6 +4,13 @@ import _ from 'lodash';
 import { generatePayload } from './payload';
 import { ResultBag } from './result-bag';
 
+/**
+ * Scans a given Joi schema instance against malicious payloads
+ * 
+ * @param schema - A Joi schema instance
+ * @param options - Scan options
+ * @returns A result bag containing the scan results
+ */
 export function scanSchema(schema: Joi.Schema<unknown>, options: { ignoreTags: string[] }): ResultBag {
 
     const basePayload = generatePayload(schema);
@@ -24,7 +31,7 @@ export function scanSchema(schema: Joi.Schema<unknown>, options: { ignoreTags: s
 
     for (const attack of generatedAttacks) {
 
-        if (attack.tags && _.intersection(attack.tags, options.ignoreTags).length > 0) {
+        if (mustIgnoreAttack(attack.tags, options.ignoreTags)) {
             continue;
         }
 
@@ -40,4 +47,8 @@ export function scanSchema(schema: Joi.Schema<unknown>, options: { ignoreTags: s
     }
 
     return resultBag;
+}
+
+function mustIgnoreAttack(attackTags: string[] | undefined, ignoreTags: string[]): boolean {
+    return attackTags !== undefined && _.intersection(attackTags, ignoreTags).length > 0;
 }
