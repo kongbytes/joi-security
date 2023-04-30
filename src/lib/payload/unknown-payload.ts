@@ -1,7 +1,7 @@
-import { AttackPayload, STRING_ATTACKS } from '../attack';
-import { SeverityLevel } from '../severity-level';
+import { AttackPayload, STRING_ATTACKS } from '../attack/index.js';
+import { SeverityLevel } from '../severity-level.js';
 
-import { BasePayload } from './base-payload';
+import { BasePayload } from './base-payload.js';
 
 export class UnknownPayload extends BasePayload {
 

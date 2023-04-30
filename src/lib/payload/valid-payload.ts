@@ -1,8 +1,8 @@
 import Joi from 'joi';
 
-import { AttackPayload } from '../attack';
+import { AttackPayload } from '../attack/index.js';
 
-import { BasePayload, InternalSchema } from './base-payload';
+import { BasePayload, InternalSchema } from './base-payload.js';
 
 export class ValidPayload extends BasePayload {
 

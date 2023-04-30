@@ -1,4 +1,4 @@
-export { BaseFormat } from './base-format';
+export { BaseFormat } from './base-format.js';
 
-export { ConsoleFormat } from './console-format';
-export { WebFormat } from './web-format';
+export { ConsoleFormat } from './console-format.js';
+export { WebFormat } from './web-format.js';

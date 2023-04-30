@@ -1,8 +1,8 @@
 import Joi from 'joi';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
-import { generatePayload } from './payload';
-import { ResultBag } from './result-bag';
+import { generatePayload } from './payload/index.js';
+import { ResultBag } from './result-bag.js';
 
 /**
  * Scans a given Joi schema instance against malicious payloads

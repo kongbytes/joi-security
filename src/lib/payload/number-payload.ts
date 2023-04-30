@@ -1,8 +1,8 @@
 import Joi from 'joi';
 
-import { AttackPayload, NUMBER_ATTACKS } from '../attack';
+import { AttackPayload, NUMBER_ATTACKS } from '../attack/index.js';
 
-import { BasePayload, InternalSchema, AttackOptions } from './base-payload';
+import { BasePayload, InternalSchema, AttackOptions } from './base-payload.js';
 
 enum NumberConstraint {
 

@@ -1,14 +1,14 @@
 import Joi from 'joi';
 
-import { AltenativesPayload } from './alternatives-payload';
-import { ArrayPayload } from './array-payload';
-import { BasePayload, InternalSchema } from './base-payload';
-import { BooleanPayload } from './boolean-payload';
-import { NumberPayload } from './number-payload';
-import { ObjectPayload } from './object-payload';
-import { StringPayload } from './string-payload';
-import { UnknownPayload } from './unknown-payload';
-import { ValidPayload } from './valid-payload';
+import { AltenativesPayload } from './alternatives-payload.js';
+import { ArrayPayload } from './array-payload.js';
+import { BasePayload, InternalSchema } from './base-payload.js';
+import { BooleanPayload } from './boolean-payload.js';
+import { NumberPayload } from './number-payload.js';
+import { ObjectPayload } from './object-payload.js';
+import { StringPayload } from './string-payload.js';
+import { UnknownPayload } from './unknown-payload.js';
+import { ValidPayload } from './valid-payload.js';
 
 export function generatePayload(unknownSchema: unknown): BasePayload {
 

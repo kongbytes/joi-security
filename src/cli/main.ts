@@ -9,13 +9,13 @@
 import chalk from 'chalk';
 import { readFileSync } from 'fs';
 import Joi from 'joi';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-import { scanSchema } from '../lib';
+import { scanSchema } from '../lib/index.js';
 
-import { ConsoleFormat, WebFormat } from './output';
+import { ConsoleFormat, WebFormat } from './output/index.js';
 
 function scanCode(filePath: string, options: { outputFormat: string; ignore: string[] }): void {
 

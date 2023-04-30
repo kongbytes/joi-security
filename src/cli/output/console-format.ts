@@ -1,9 +1,9 @@
 import chalk from 'chalk';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
-import { ResultBag, SeverityLevel } from '../../lib';
+import { ResultBag, SeverityLevel } from '../../lib/index.js';
 
-import { BaseFormat } from './base-format';
+import { BaseFormat } from './base-format.js';
 
 export class ConsoleFormat extends BaseFormat {
 

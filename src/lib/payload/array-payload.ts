@@ -1,10 +1,10 @@
 import Joi from 'joi';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
-import { AttackPayload } from '../attack';
+import { AttackPayload } from '../attack/index.js';
 
-import { BasePayload, InternalSchema } from './base-payload';
-import { generatePayload } from './utils';
+import { BasePayload, InternalSchema } from './base-payload.js';
+import { generatePayload } from './utils.js';
 
 export class ArrayPayload extends BasePayload {
 

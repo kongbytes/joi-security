@@ -1,10 +1,10 @@
 import Joi from 'joi';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import RandExp from 'randexp';
 
-import { AttackPayload, STRING_ATTACKS } from '../attack';
+import { AttackPayload, STRING_ATTACKS } from '../attack/index.js';
 
-import { AttackOptions, BasePayload, InternalSchema } from './base-payload';
+import { AttackOptions, BasePayload, InternalSchema } from './base-payload.js';
 
 enum StringConstraint {
 

@@ -1,5 +1,5 @@
-import { SeverityLevel } from '../../severity-level';
-import { AttackPayload } from '../attack-payload';
+import { SeverityLevel } from '../../severity-level.js';
+import { AttackPayload } from '../attack-payload.js';
 
 export const PATH_TRAVERSAL: AttackPayload[] = [
     {

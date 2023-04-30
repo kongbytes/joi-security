@@ -1,13 +1,13 @@
-export { BasePayload } from './base-payload';
+export { BasePayload } from './base-payload.js';
 
-export { BooleanPayload } from './boolean-payload';
-export { StringPayload } from './string-payload';
-export { NumberPayload } from './number-payload';
+export { BooleanPayload } from './boolean-payload.js';
+export { StringPayload } from './string-payload.js';
+export { NumberPayload } from './number-payload.js';
 
-export { AltenativesPayload } from './alternatives-payload';
-export { ArrayPayload } from './array-payload';
-export { ObjectPayload } from './object-payload';
+export { AltenativesPayload } from './alternatives-payload.js';
+export { ArrayPayload } from './array-payload.js';
+export { ObjectPayload } from './object-payload.js';
 
-export { UnknownPayload } from './unknown-payload';
+export { UnknownPayload } from './unknown-payload.js';
 
-export { generatePayload } from './utils';
+export { generatePayload } from './utils.js';

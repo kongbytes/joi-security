@@ -1,1 +1,1 @@
-export { STRING_ATTACKS } from './string-attacks';
+export { STRING_ATTACKS } from './string-attacks.js';

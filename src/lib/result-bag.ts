@@ -1,4 +1,4 @@
-import { SeverityLevel } from './severity-level';
+import { SeverityLevel } from './severity-level.js';
 
 /**
  * Stores and exposes all the results linked to a Joi schema scan

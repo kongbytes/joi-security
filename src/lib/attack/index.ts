@@ -1,4 +1,4 @@
-export { AttackPayload } from './attack-payload';
+export { AttackPayload } from './attack-payload.js';
 
-export { NUMBER_ATTACKS } from './number-attacks';
-export { STRING_ATTACKS } from './text';
+export { NUMBER_ATTACKS } from './number-attacks.js';
+export { STRING_ATTACKS } from './text/index.js';

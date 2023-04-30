@@ -1,6 +1,6 @@
-import { AttackPayload } from '../attack';
+import { AttackPayload } from '../attack/index.js';
 
-import { BasePayload } from './base-payload';
+import { BasePayload } from './base-payload.js';
 
 export class BooleanPayload extends BasePayload {
 

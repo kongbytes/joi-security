@@ -1,3 +1,3 @@
-export { scanSchema } from './main';
-export { ResultBag, ResultCategory, ResultRecord } from './result-bag';
-export { SeverityLevel } from './severity-level';
+export { scanSchema } from './main.js';
+export { ResultBag, ResultCategory, ResultRecord } from './result-bag.js';
+export { SeverityLevel } from './severity-level.js';

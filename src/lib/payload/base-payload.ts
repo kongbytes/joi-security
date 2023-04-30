@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { AttackPayload } from '../attack';
+import { AttackPayload } from '../attack/index.js';
 
 export abstract class BasePayload {
 

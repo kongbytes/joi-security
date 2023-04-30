@@ -1,10 +1,10 @@
 import Joi from 'joi';
 
-import { AttackPayload } from '../attack';
-import { SeverityLevel } from '../severity-level';
+import { AttackPayload } from '../attack/index.js';
+import { SeverityLevel } from '../severity-level.js';
 
-import { BasePayload, InternalSchema } from './base-payload';
-import { generatePayload } from './utils';
+import { BasePayload, InternalSchema } from './base-payload.js';
+import { generatePayload } from './utils.js';
 
 
 export class ObjectPayload extends BasePayload {
