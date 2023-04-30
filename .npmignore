@@ -6,6 +6,11 @@ src/
 .gitignore
 tsconfig.json
 .eslintrc.js 
+.eslintrc.cjs 
+.husky
+
+# Parcel
+.parcel-cache
 
 # Node logs
 logs
