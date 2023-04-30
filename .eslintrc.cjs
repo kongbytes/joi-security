@@ -54,7 +54,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-assignment': ['off'],
         '@typescript-eslint/no-unsafe-return': ['off'],
 
-        'import/no-unresolved': ['error'],
+        'import/no-unresolved': ['off'],
         'import/named': ['error'],
         'import/no-absolute-path': ['error'],
         'import/no-dynamic-require': ['error'],
