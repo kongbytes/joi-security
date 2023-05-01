@@ -27,6 +27,9 @@ export interface ResultRecord {
     messages: string[];
     payload: unknown;
     tags: string[];
+    cwe: number[];
+    description: string;
+    remediations: string[];
 
 }
 

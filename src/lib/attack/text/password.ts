@@ -4,8 +4,9 @@ import { AttackPayload } from '../attack-payload.js';
 export const PASSWORD: AttackPayload[] = [
     {
         severity: SeverityLevel.INFO,
-        messages: ['Passwords vulnerable for brute-force attacks'],
+        messages: ['Weak password policy, vulnerable for brute-force'],
         payload: 'password',
-        tags: ['password']
+        tags: ['password'],
+        cwe: [521]
     }
 ];

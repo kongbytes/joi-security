@@ -42,7 +42,10 @@ export function scanSchema(schema: Joi.Schema<unknown>, options: { ignoreTags: s
             severity: attack.severity,
             messages: attack.messages,
             payload: attack.payload,
-            tags: attack.tags || []
+            tags: attack.tags || [],
+            cwe: attack.cwe || [],
+            description: attack.description || '',
+            remediations: attack.remediations || []
         });
     }
 

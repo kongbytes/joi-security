@@ -43,7 +43,7 @@ export class ObjectPayload extends BasePayload {
 
         const validObject = this.generateMock();
 
-        const payloads = [];
+        const payloads: AttackPayload[] = [];
 
         for (const [keyName, value] of this.entries) {
 
@@ -71,7 +71,10 @@ export class ObjectPayload extends BasePayload {
                     severity: attack.severity,
                     messages: attack.messages,
                     payload: attackPayload,
-                    tags: attack.tags
+                    tags: attack.tags,
+                    cwe: attack.cwe,
+                    description: attack.description,
+                    remediations: attack.remediations
                 });
             }
         }

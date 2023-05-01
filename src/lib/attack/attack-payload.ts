@@ -7,4 +7,8 @@ export interface AttackPayload {
     payload: unknown;
     tags?: string[];
 
+    description?: string;
+    cwe?: number[];
+    remediations?: string[];
+
 }

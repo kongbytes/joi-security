@@ -1,6 +1,6 @@
-import { SeverityLevel } from '../severity-level';
+import { SeverityLevel } from '../severity-level.js';
 
-import { AttackPayload } from './attack-payload';
+import { AttackPayload } from './attack-payload.js';
 
 export const NUMBER_ATTACKS: { [key: string]: AttackPayload[] } = {
 
@@ -8,19 +8,13 @@ export const NUMBER_ATTACKS: { [key: string]: AttackPayload[] } = {
         {
             severity: SeverityLevel.LOW,
             messages: ['Negative overflow'],
-            payload: -999999999999,
+            payload: Number.MIN_VALUE,
             tags: ['overflow']
         },
         {
-            severity: SeverityLevel.LOW,
+            severity: SeverityLevel.INFO,
             messages: ['Numeric overflow'],
-            payload: 4294967295,
-            tags: ['overflow']
-        },
-        {
-            severity: SeverityLevel.LOW,
-            messages: ['Numeric overflow'],
-            payload: 54294967295,
+            payload: 10e200,
             tags: ['overflow']
         }
     ],

@@ -7,12 +7,14 @@ export const EMAIL: AttackPayload[] = [
         severity: SeverityLevel.HIGH,
         messages: ['RFC-compliant email bypass'],
         payload: '"><svg/onload=confirm(1)>"@domain.com',
+        cwe: [79]
     },
     {
         severity: SeverityLevel.LOW,
         messages: ['Punycode domains may allow homograph phishing attacks'],
         payload: 'bookings@airfrạnce.com',
-        tags: ['punycode', 'phishing']
+        tags: ['punycode', 'phishing'],
+        cwe: [1007]
     },
     {
         severity: SeverityLevel.INFO,

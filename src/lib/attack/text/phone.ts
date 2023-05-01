@@ -18,6 +18,7 @@ export const PHONE: AttackPayload[] = [
         severity: SeverityLevel.MEDIUM,
         messages: ['Unauthorized characters after phone number'],
         payload: '+3290522726<script></script>',
-        tags: ['phone', 'international']
+        tags: ['phone', 'international'],
+        cwe: [79]
     }
 ];
