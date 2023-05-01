@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf8">
+
+    <title>Joi security | results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" integrity="sha256-WLKGWSIJYerRN8tbNGtXWVYnUM5wMJTXD8eG4NtGcDM=" crossorigin="anonymous">
+
+</head>
+<body>
+    
+    <div class="container pt-5">
+
+        <h1 class="title">Joi security scan</h1>
+
+        <div class="columns">
+            <div class="column is-half">
+
+<textarea id="code-input" style="font-family: monospace;" rows="20" class="textarea mb-5 has-background-dark has-text-success" placeholder="Joi.string()..." spellcheck="false">
+Joi.object().keys({
+    username: Joi.string().alphanum().min(3).max(30).required(),
+    password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/),
+    ip_address: [Joi.string().ip(), Joi.string().hostname()],
+    options: Joi.object({
+        twitter: Joi.string().required(),
+        linkedin: Joi.string().required().uri()
+    }),
+    birth_year: Joi.number().integer().min(1900),
+    //email: Joi.string().email()
+}).unknown(true);
+</textarea>
+                <button id="scan-btn" class="button is-warning is-medium">
+                    <b>Scan Joi schema</b>
+                </button>
+                <br>
+                <label class="checkbox mt-3">
+                    <input type="checkbox" id="livecode-input" checked>
+                    Scan code live
+                </label>
+
+            </div>
+            <div class="column is-half">
+
+                <div id="result-container"></div>
+
+            </div>
+        </div>
+
+    </div>
+        
+    <script type="module">
+
+        import Joi from 'https://cdn.jsdelivr.net/npm/joi@17.9.2/+esm'
+        import { scanSchema } from './main.js';
+
+        let scanCodeLive = true;
+
+        function performScan() {
+
+            let schema;
+            try {
+                schema = eval(codeInput.value);
+            }
+            catch(err) {
+                resultContainer.innerHTML = `
+                    <div class="notification is-warning">
+                        JavaScript error found:<br>${err.message}
+                    </div>
+                `;
+                return;
+            }
+
+            if (!schema) {
+                resultContainer.innerHTML = '';
+                return;
+            }
+            
+            let resultBag;
+            try {
+                resultBag = scanSchema(schema, { ignoreTags: [] });
+            }
+            catch(err) {
+                resultContainer.innerHTML = `
+                    <div class="notification is-warning">
+                        Scan error: ${err.message}
+                    </div>
+                `;
+                return;
+            }
+
+            const prelude = `
+            <div class="notification is-info">
+                The Joi validation schema blocks ${resultBag.records.filter(record => record.result === 'blocked').length} out of
+                ${resultBag.records.length} attacks
+            </div>
+            `;
+
+            resultContainer.innerHTML = prelude + resultBag.records
+                .filter(record => record.result !== 'blocked')
+                .sort((recordA, recordB) => recordB.severity - recordA.severity)
+                .map(record => {
+
+                    const code = JSON.stringify(record.payload, null, '    ')
+                        .replaceAll('<', '&lt;')
+                        .replaceAll('>', '&gt;');
+                    
+                    let labelCode = `<span class="tag is-danger">#${record.severity}</span>`;
+                    switch (record.severity) {
+                        case 0:
+                            labelCode = `<span class="tag is-info">INFO</span>`;
+                            break;
+                        case 1:
+                            labelCode = `<span class="tag is-link">LOW</span>`;
+                            break;
+                        case 2:
+                            labelCode = `<span class="tag is-warning">MEDIUM</span>`;
+                            break;
+                        case 3:
+                            labelCode = `<span class="tag is-danger">HIGH</span>`;
+                            break;
+                        case 4:
+                            labelCode = `<span class="tag is-dark">CRITICAL</span>`;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    return `
+                        <h5 class="title is-5 mb-0">
+                            ${record.messages[0]} ${labelCode}
+                        </h5>
+                        <div class="mb-1">
+                            #${record.tags.join(',')}
+                            &nbsp;&nbsp;
+                            ${record.cwe.map(cweItem => `<a target="_BLANK" href="https://cwe.mitre.org/data/definitions/${cweItem}.html">CWE-${cweItem}</a>`).join(',')}
+                        </div>
+                        <pre>${code}</pre>
+                        <br>`;
+
+                })
+                .join('');
+        }
+
+        const scanBtn = document.getElementById('scan-btn');
+        const codeInput = document.getElementById('code-input');
+        const resultContainer = document.getElementById('result-container');
+        const livecodeInput = document.getElementById('livecode-input');
+
+        // React on changes
+        codeInput.addEventListener('input', () => {
+            
+            if (!scanCodeLive) {
+                return;
+            }
+
+            performScan();
+
+        });
+        scanBtn.addEventListener('click', () => performScan());
+        livecodeInput.addEventListener('input', () => {
+
+            scanCodeLive = livecodeInput.checked;
+        
+        });
+
+        performScan();
+
+    </script>
+
+
+</body>
+</html>
