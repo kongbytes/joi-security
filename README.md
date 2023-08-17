@@ -6,6 +6,10 @@
   <img src="https://raw.githubusercontent.com/Saluki/joi-security/master/docs/joi-security-results-v1.png">
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Saluki/joi-security/master/docs/joi-security-web-v1.png">
+</p>
+
 ## Getting started
 
 Install the latest *joi-security* CLI tool using NPM.
